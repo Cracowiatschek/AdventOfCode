@@ -1,12 +1,12 @@
 import unittest
 from solution import GetDistance, output
 
-get_distance = GetDistance()
+get_distance = GetDistance()  # get class instance for tests
 
 class TestGetDistance(unittest.TestCase):
 
     def test_data_parser(self):
-        get_distance.data_parser(data)
+        get_distance.data_parser(data) # placeholder data for exec module
 
         self.assertEqual(get_distance.left_list, [3, 4, 2, 1, 3, 3])
         self.assertEqual(get_distance.right_list, [4, 3, 5, 3, 9, 3])
@@ -35,21 +35,15 @@ class TestGetDistance(unittest.TestCase):
 
     def test_output(self):
 
-        distance, increases_score = output(data)
+        distance, increases_score = output(data)  # placeholder data for exec module
 
         self.assertEqual(distance, 11)
         self.assertEqual(increases_score, 31)
 
-
-# if __name__ == "__main__":
-#     unittest.main()
-
-def run_tests():
+def run_tests():  # runing test module for exec module
     suite = unittest.TestLoader().loadTestsFromTestCase(TestGetDistance)
     runner = unittest.TextTestRunner()
     result = runner.run(suite)
     simple = result.wasSuccessful()
     return result, simple
 
-# if __name__ == "__main__":
-#     result, simple = run_tests()
