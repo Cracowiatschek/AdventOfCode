@@ -62,7 +62,7 @@ def solver():
 
 
 def score_board_render(scoreboard: dict[str:dict]):
-    table = Table(title = "Challenge Results")
+    table = Table(title = "Advent of Code 2024: Results")
 
     table.add_column("Challenge", justify = "center", style = "cyan", no_wrap = True)
     table.add_column("Part one answer", justify = "center", style = "green")
