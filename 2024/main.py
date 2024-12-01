@@ -23,13 +23,12 @@ def solver():
             continue
 
         test_data = init_data(sample_path)  # get test data from file
-
+        print(solution_file.parent)  # print day for easier navigate at console if I get some error
         try:
             sys.path.append(str(solution_file.parent))  # get path to solution file for tests
 
             with open(test_path, "r") as test:
                 test_code: str = test.read()  # initialize tests code
-
                 test_vars: dict[str: None] = {"data": test_data, "solution": __import__("solution")}  # initialize local variables for tests
 
                 exec(test_code, test_vars)  # execute test file

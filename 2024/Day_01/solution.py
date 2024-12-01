@@ -1,8 +1,5 @@
 
 name: str = "Day 1: Historian Hysteria"  # initialize challenge name for framework
-def init_data(path):
-    return open(path, 'r').read().split("\n")
-
 
 class GetDistance:
     def __init__(self):
