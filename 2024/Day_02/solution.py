@@ -8,7 +8,7 @@ class RedNosedReports:
         self.safe_reports_non_restrict: list[int] = []
 
 
-    def data_reader(self, input_data: list[str]) -> None:
+    def read_data(self, input_data: list[str]) -> None:
         for report, content in enumerate(input_data):
             self.reports[report] = [int(i) for i in content.split(' ')]
 
@@ -37,12 +37,22 @@ class RedNosedReports:
             safety_result: bool = self.check_safety_report(report = self.reports[i])
             if safety_result is True: # update safety lists
                 self.safe_reports.append(i)
+                self.safe_reports_non_restrict.append(i)
+            else:
+                for iteration, val in enumerate(self.reports[i]): # check low restricted safety reports
+                    copy_report: list[int] = self.reports[i].copy()
+                    del copy_report[iteration]
+                    safety_result_non_restriction: bool = self.check_safety_report(copy_report)
+                    if safety_result_non_restriction is True:
+                        self.safe_reports_non_restrict.append(i)
+                        break
+
 
 
 def output(data: list[str]) -> tuple:  # get solution outputs for framework
 
     reports_machine = RedNosedReports()
-    reports_machine.data_reader(data)
+    reports_machine.read_data(data)
     reports_machine.check_all_reports()
     solution_1: int = len(reports_machine.safe_reports)
     solution_2: int = len(reports_machine.safe_reports_non_restrict)

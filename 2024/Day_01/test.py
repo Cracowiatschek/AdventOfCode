@@ -6,7 +6,7 @@ get_distance = GetDistance()  # get class instance for tests
 class TestGetDistance(unittest.TestCase):
 
     def test_data_parser(self):
-        get_distance.data_parser(data) # placeholder data for exec module
+        get_distance.read_data(data) # placeholder data for exec module
 
         self.assertEqual(get_distance.left_list, [3, 4, 2, 1, 3, 3])
         self.assertEqual(get_distance.right_list, [4, 3, 5, 3, 9, 3])

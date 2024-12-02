@@ -8,7 +8,7 @@ class GetDistance:
         self.distance: int = 0
         self.increases_score: int = 0
 
-    def data_parser(self, data: list[str]) -> None: # get data from input
+    def read_data(self, data: list[str]) -> None: # get data from input
         for i in data:
             get_places: list[str] = i.split(' ')
             self.left_list.append(int(get_places[0]))  # split data between two lists
@@ -36,7 +36,7 @@ class GetDistance:
 def output(data: list[str]):  # get solution outputs for framework
 
     solution = GetDistance()
-    solution.data_parser(data)
+    solution.read_data(data)
     solution.get_distance()
     solution.get_increases_score()
 
