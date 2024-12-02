@@ -1,8 +1,8 @@
 import pathlib
-import sys
 from pathlib import Path
 from rich.console import Console
 from rich.table import Table
+import sys
 
 
 def init_data(path):  # function for create input/test dataset
@@ -18,19 +18,20 @@ def solver():
         test_path: pathlib.WindowsPath = solution_file.parent / "test.py"  # init all important paths for tests and get solution
         sample_path: pathlib.WindowsPath = solution_file.parent / "sample.in"
         input_path: pathlib.WindowsPath = solution_file.parent / "input.in"
-
         if not test_path.exists() and not sample_path.exists() and not input_path.exists():  # check exists of all files
             continue
 
-        test_data = init_data(sample_path)  # get test data from file
-        print(solution_file.parent)  # print day for easier navigate at console if I get some error
-        try:
-            sys.path.append(str(solution_file.parent))  # get path to solution file for tests
+        print("\n", solution_file.parent)
 
+        test_data = init_data(sample_path)  # get test data from file
+        if "solution" in sys.modules:
+            del sys.modules["solution"]
+        sys.path.append(str(solution_file.parent))  # get path to solution file for tests
+
+        try:
             with open(test_path, "r") as test:
                 test_code: str = test.read()  # initialize tests code
                 test_vars: dict[str: None] = {"data": test_data, "solution": __import__("solution")}  # initialize local variables for tests
-
                 exec(test_code, test_vars)  # execute test file
 
                 if 'run_tests' in test_vars: # get tests result
@@ -49,7 +50,7 @@ def solver():
 
                                 result = solution_vars["output"](input_data)  # get solution of challenge
                                 scoreboard[solution_vars["name"]] = {"part one": result[0], "part_two": result[1]}  # add solutions to scoreboard
-
+                                del sys.path[-1]
                         except Exception as e:
                             print("It's edge case. Your error: \n")  # get information about my edge case input
 

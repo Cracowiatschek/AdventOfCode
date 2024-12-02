@@ -112,7 +112,7 @@ def initialize(year, month, day):
             if 1 <= day <= 25:
                 try:
                     create_structure(year, day)
-                    print("Tempplate created! Everything it's okay! Have a fun!")
+                    print("Template created! Everything it's okay! Have a fun!")
                 except Exception as e:
                     print(e)
             else:
