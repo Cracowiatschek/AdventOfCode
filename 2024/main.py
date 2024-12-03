@@ -24,7 +24,7 @@ def solver():
         print("\n", solution_file.parent)
 
         test_data = init_data(sample_path)  # get test data from file
-        if "solution" in sys.modules:
+        if "solution" in sys.modules:  # remove last solution module
             del sys.modules["solution"]
         sys.path.append(str(solution_file.parent))  # get path to solution file for tests
 
