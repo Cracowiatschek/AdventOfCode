@@ -14,7 +14,7 @@ class MemoryScanner:
         multiplication_digits: list = [(int(digit[0]), int(digit[1])) for digit in [
             (re.findall("\d+", i)) for i in multiplication_operations
         ]]
-        print(multiplication_digits)
+
         self.memory_content = multiplication_digits
 
     @staticmethod
