@@ -1,7 +1,4 @@
-from collections import namedtuple, defaultdict,deque
-from itertools import permutations
-
-from requests.utils import is_valid_cidr
+from collections import namedtuple
 
 name: str = "Day 5: Print Queue"
 
