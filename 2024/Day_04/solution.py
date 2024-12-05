@@ -23,7 +23,7 @@ def crossword_puzzle(puzzle: list[str]) -> int:
                         puzzle[row_id + directions[direct]["row"][2]][col_id + directions[direct]["column"][2]],
                         puzzle[row_id + directions[direct]["row"][3]][col_id + directions[direct]["column"][3]]
                     ]))
-                except Exception as e:
+                except:
                     pass
 
             for string in string_to_check:
@@ -49,7 +49,7 @@ def find_x_mas(puzzle:list[str]) -> int:
                     puzzle[row_id+2][col_id],
                     puzzle[row_id+2][col_id+2]
                 ])
-            except Exception as e:
+            except:
                 pass
 
             for x in find_x:

@@ -85,10 +85,11 @@ name: str = "{meta[0]}"
 
 
 def output(data: list[str]) -> tuple:  # get solution outputs for framework
-
     # solution body
+    solution_1: int = 0
+    solution_2: int = 0
 
-    return a, b  # change variables to correct
+    return solution_1, solution_2  # change variables to correct
                 """
             )
 
