@@ -1,10 +1,10 @@
 
 import unittest
-from solution import output, read_rules, read_sections, validation, sum_valid_pages, Rule, Section
+from solution import output, read_rules, read_sections, validation, sum_valid_pages, correction, Rule, Section
 
 class TestPrintQueue(unittest.TestCase):
-    def __init__(self):
-        super().__init__()
+
+    def test_data(self):
         self.test_rules: list[Rule] = [
             Rule(47, 53),
             Rule(97, 13),
@@ -38,21 +38,31 @@ class TestPrintQueue(unittest.TestCase):
         ]
 
     def test_read_rules(self):
+        self.test_data()
         self.assertEqual(read_rules(data), self.test_rules)
 
     def test_section_rules(self):
+        self.test_data()
         self.assertEqual(read_sections(data), self.test_sections)
 
     def test_validation_positive(self):
+        self.test_data()
         test_data: Section = Section([75,47,61,53,29], True)
         self.assertEqual(validation(self.test_rules, test_data.values), True)
 
     def test_validation_negative(self):
         test_data: Section = Section([61,13,29], True)
+        self.test_data()
         self.assertEqual(validation(self.test_rules, test_data.values), False)
 
+    def test_correction(self):
+        test_data: list[int] = [61,13,29]
+        self.test_data()
+        self.assertEqual(correction(self.test_rules, test_data), [61,29,13])
+
     def test_sum_valid_pages(self):
-        self.assertEqual(sum_valid_pages(self.test_rules, self.test_sections), 143)
+        self.test_data()
+        self.assertEqual(sum_valid_pages(self.test_rules, self.test_sections), (143,123))
 
 
 def run_tests():  # runing test module for exec module
