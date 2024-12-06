@@ -1,6 +1,6 @@
 
 import unittest
-from solution import output, read_rules, read_sections, validation, sum_valid_pages, correction, Rule, Section
+from solution import read_rules, read_sections, validation, sum_valid_pages, correction, Rule, Section
 
 class TestPrintQueue(unittest.TestCase):
 
