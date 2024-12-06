@@ -20,6 +20,7 @@ def get_position(x: tuple[int, ...], y: tuple[int, ...]) -> tuple[int, ...]:
 
 directions: list[tuple[int,int]] = [(0, -1), (1, 0), (0, 1), (-1, 0)]
 
+
 def count_available_positions(matrix, directions:list[tuple[int,int]]):
     cache = set()
     actual_position: tuple[int, ...] = [i for i, j in matrix.items() if j == "^"][0]
