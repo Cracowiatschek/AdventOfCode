@@ -5,7 +5,7 @@ from solution import output
 
 class TestBridgeRepair(unittest.TestCase):
     def test_output(self):
-        self.assertEqual(output(data), (3,0))
+        self.assertEqual(output(data), (3749, 11387))
 
 
 def run_tests():  # runing test module for exec module
