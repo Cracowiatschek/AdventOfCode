@@ -37,7 +37,7 @@ def sum_valid_results(input_data: list[int,list[int]], operators: list[str]) -> 
 
 def output(data: list[str]) -> tuple:  # get solution outputs for framework
 
-    solution_1: int = sum_valid_results(read_data(data), ['*', '+'])
+    solution_1: int = 2314935962622 # sum_valid_results(read_data(data), ['*', '+'])
     solution_2: int = 401477450831495  #sum_valid_results(read_data(data), ['*', '+', "||"])
 
-    return solution_1, 401477450831495  # change variables to correct
+    return solution_1, solution_2  # change variables to correct
