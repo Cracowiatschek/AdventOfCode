@@ -98,13 +98,7 @@ class GuardGallivant:
                             break
                 else:
                     break
-            # print(self.actual_position, count_infinity_loops)
         return count_infinity_loops
-
-
-
-
-# def count_infinity_loops(self):
 
 
 def output(data: list[str]) -> tuple:  # get solution outputs for framework
