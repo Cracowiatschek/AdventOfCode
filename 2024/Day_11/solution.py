@@ -3,9 +3,6 @@ from collections import Counter
 
 name: str = "Day 11: Plutonian Pebbles"
 
-def init_data(path):  # function for create input/test dataset
-    return open(path, 'r').read().split("\n")
-
 def read_data(data: list[str]) -> list[int]:
     return list(map(int,data[0].split(' ')))
 #
