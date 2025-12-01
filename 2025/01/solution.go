@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
-
 
 func main() {
 
@@ -31,8 +30,8 @@ func main() {
 		pos, breakpointsCount := rotate(direction, value, position)
 		position = pos
 		if position == 0 {
-			zeroPositionState ++
-			breakpointsCount ++
+			zeroPositionState++
+			breakpointsCount++
 		}
 		zeroBreakepoints += breakpointsCount
 
@@ -48,11 +47,10 @@ func rotate(direction uint8, value, position int) (int, int) {
 	rangeMax := 99
 	rangeMin := 0
 
-
 	if direction == 'R' {
 		position += value
 		if position > rangeMax {
-			breakpointCount ++
+			breakpointCount++
 			position = rangeMin + (position - rangeMax - 1)
 		}
 	}
@@ -60,23 +58,23 @@ func rotate(direction uint8, value, position int) (int, int) {
 	if direction == 'L' {
 		position -= value
 		if position < rangeMin {
-			breakpointCount ++
-			position = rangeMax - (position * (-1) - 1)
+			breakpointCount++
+			position = rangeMax - (position*(-1) - 1)
 		}
 	}
 
 	if position == 0 {
-		breakpointCount --
+		breakpointCount--
 	}
 
 	if breakpointCount > 0 && start == 0 {
-		breakpointCount --
+		breakpointCount--
 	}
 
 	if breakpointCount < 0 {
 		breakpointCount = 0
 	}
-//	fmt.Println(position, breakpointCount)
+	//	fmt.Println(position, breakpointCount)
 
 	return position, breakpointCount
 }
