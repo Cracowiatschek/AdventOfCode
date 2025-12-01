@@ -34,7 +34,6 @@ func main() {
 			breakpointsCount++
 		}
 		zeroBreakepoints += breakpointsCount
-
 	}
 	fmt.Println("Part one: ", zeroPositionState)
 	fmt.Println("Part two: ", zeroBreakepoints)
@@ -50,31 +49,30 @@ func rotate(direction uint8, value, position int) (int, int) {
 	if direction == 'R' {
 		position += value
 		if position > rangeMax {
-			breakpointCount++
 			position = rangeMin + (position - rangeMax - 1)
+			if position != 0 && start != 0 {
+				breakpointCount++
+			}
 		}
 	}
 
 	if direction == 'L' {
 		position -= value
 		if position < rangeMin {
-			breakpointCount++
 			position = rangeMax - (position*(-1) - 1)
+			if position != 0 && start != 0 {
+				breakpointCount++
+			}
 		}
 	}
 
-	if position == 0 {
-		breakpointCount--
-	}
-
-	if breakpointCount > 0 && start == 0 {
-		breakpointCount--
-	}
-
-	if breakpointCount < 0 {
-		breakpointCount = 0
-	}
-	//	fmt.Println(position, breakpointCount)
+//	if breakpointCount > 0 && start == 0 {
+//		breakpointCount--
+//	}
+//
+//	if breakpointCount < 0 {
+//		breakpointCount = 0
+//	}
 
 	return position, breakpointCount
 }
