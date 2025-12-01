@@ -66,13 +66,5 @@ func rotate(direction uint8, value, position int) (int, int) {
 		}
 	}
 
-//	if breakpointCount > 0 && start == 0 {
-//		breakpointCount--
-//	}
-//
-//	if breakpointCount < 0 {
-//		breakpointCount = 0
-//	}
-
 	return position, breakpointCount
 }
