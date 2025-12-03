@@ -5,7 +5,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-//	"sort"
 )
 
 func main() {
@@ -21,50 +20,48 @@ func main() {
 	resultTwo := 0
 
 	for _, row := range extractData {
-		resultOne += findJoltage(row)
-		resultTwo += findMoreJoltage(row)
-
+		resultOne += findJoltage(row, 2)
+		resultTwo += findJoltage(row, 12)
 	}
-	fmt.Println(resultOne, resultTwo)
+	fmt.Println("Part one: ", resultOne, "\nPart two: ", resultTwo)
 }
 
-func findJoltage(row string) int {
-//	textLen := len(row)
-	firstDigit := 0
-	firstDigitIdx := 0
-	secondDigit := 0
-	firstIsSecond := false
-	for char :=range row {
-		charNum,_ := strconv.Atoi(string(row[char]))
-		if charNum > firstDigit {
-			firstDigit = charNum
-			firstDigitIdx = char
+func findJoltage(row string, digitLen int) int {
+	var digit []string
+	toSearch := digitLen
+	lastDigit := 0
+	lastIdx := 0
+
+	for range digitLen {
+		lastDigit = 0
+		lastIdx = 0
+		for char := range row[:len(row)-toSearch+1] {
+			charNum, _ := strconv.Atoi(string(row[char]))
+			if charNum > lastDigit {
+				lastDigit = charNum
+				lastIdx = char
+
+			}
+			if charNum == 9 {
+				break
+			}
 		}
-		if charNum == 9 {
-			break
+
+		digit = append(digit, strconv.Itoa(lastDigit))
+		row = row[lastIdx+1:]
+		toSearch--
+
+		if len(row) == toSearch {
+			joinDigits := strings.Join(digit, "")
+			digitInt, _ := strconv.Atoi(joinDigits + row)
+			return digitInt
+		}
+
+		if toSearch == 0 {
+			joinDigits := strings.Join(digit, "")
+			digitInt, _ := strconv.Atoi(joinDigits)
+			return digitInt
 		}
 	}
-	if firstDigitIdx == len(row)-1 {
-		row = row[:firstDigitIdx]
-		firstIsSecond = true
-	} else {
-		row = row[firstDigitIdx+1:]
-	}
-	for char :=range row {
-		charNum,_ := strconv.Atoi(string(row[char]))
-		if charNum > secondDigit {
-			secondDigit = charNum
-		}
-	}
-	charFirstDigit := strconv.Itoa(firstDigit)
-	charSecondDigit := strconv.Itoa(secondDigit)
-	result := 0
-	if firstIsSecond {
-		result, _ = strconv.Atoi(charSecondDigit+charFirstDigit)
-	} else {
-		result, _ = strconv.Atoi(charFirstDigit+charSecondDigit)
-	}
-	return result
+	return 0
 }
-
-
