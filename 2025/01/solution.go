@@ -35,8 +35,7 @@ func main() {
 		}
 		zeroBreakepoints += breakpointsCount
 	}
-	fmt.Println("Part one: ", zeroPositionState)
-	fmt.Println("Part two: ", zeroBreakepoints)
+	fmt.Println("Part one: ", zeroPositionState,"\nPart two: ", zeroBreakepoints)
 }
 
 func rotate(direction uint8, value, position int) (int, int) {

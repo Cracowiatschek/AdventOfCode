@@ -27,7 +27,7 @@ func main() {
 		resultSimple += sumIntSlice(searchResult)
 		resultAdvanced += sumIntSlice(advancedSearchResult)
 	}
-	fmt.Println(resultSimple, resultAdvanced)
+	fmt.Println("Part one: ", resultSimple, "\nPart two: ", resultAdvanced)
 }
 
 func searchRange(a, b int) []int {
