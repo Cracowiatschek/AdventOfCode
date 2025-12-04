@@ -14,9 +14,10 @@ func main() {
 	}
 	stringData := string(raw)
 	extractData := strings.Split(stringData, "\n")
-	x := buildMatrix(extractData)
-	y := searchRolls(x)
-	fmt.Println(y)
+	array := buildMatrix(extractData)
+	resultOne := searchRolls(array)
+	resultTwo := removeRolls(array)
+	fmt.Println("Part one: ", resultOne, "\nPart two: ", resultTwo)
 
 }
 
@@ -29,7 +30,7 @@ func buildMatrix(input []string) [][]rune {
 	for y, row := range input {
 
 		for x, col := range row {
-			matrix[x][y] = col
+			matrix[y][x] = col
 		}
 	}
 	return matrix
@@ -50,12 +51,38 @@ func searchRolls(matrix [][]rune) int {
 	return rolls
 }
 
+func removeRolls(matrix [][]rune) int {
+	rolls := 0
+
+	for {
+		lastRound := true
+		var cache [][]int
+		for i := range matrix {
+			for j, col := range matrix[i] {
+				if col == '@' {
+					if setupNeighbours(i, j, matrix) < 4 {
+						rolls++
+						cache = append(cache, []int{i, j})
+						lastRound = false
+					}
+				}
+			}
+		}
+		for _, val := range cache {
+			matrix[val[0]][val[1]] = '.'
+		}
+		if lastRound {
+			break
+		}
+	}
+	return rolls
+}
+
 func setupNeighbours(row, col int, matrix [][]rune) int {
 	minRow := 0
 	maxRow := len(matrix) - 1
 	minCol := 0
 	maxCol := len(matrix[0]) - 1
-	//	fmt.Println(minCol,maxCol, minRow,maxRow, "BEFORE")
 
 	if maxRow > row {
 		maxRow = row + 1
@@ -63,7 +90,6 @@ func setupNeighbours(row, col int, matrix [][]rune) int {
 	if minRow < row {
 		minRow = row - 1
 	}
-
 	if maxCol > col {
 		maxCol = col + 1
 	}
@@ -72,14 +98,17 @@ func setupNeighbours(row, col int, matrix [][]rune) int {
 	}
 	result := -1
 
-	matrix = matrix[minRow:maxRow]
-	for _, value := range matrix {
-		for _, char := range value[minCol:maxCol] {
-			if string(char) == "@" {
-
-				result++
+	for i := range matrix {
+		if i >= minRow && i <= maxRow {
+			for j := range matrix[i] {
+				if j >= minCol && j <= maxCol {
+					if matrix[i][j] == '@' {
+						result++
+					}
+				}
 			}
 		}
 	}
+
 	return result
 }
