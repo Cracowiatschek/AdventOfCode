@@ -1,11 +1,10 @@
-
 package main
 
 import (
 	"fmt"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -31,20 +30,19 @@ func main() {
 			from, _ := strconv.Atoi(strings.Split(line, "-")[0])
 			to, _ := strconv.Atoi(strings.Split(line, "-")[1])
 			if to <= from {
-				ranges = append(ranges, []int{to,from})
+				ranges = append(ranges, []int{to, from})
 			} else {
-				ranges = append(ranges, []int{from,to})
+				ranges = append(ranges, []int{from, to})
 			}
 
 		}
 	}
 
-	num := getNumberInRange(numbers,ranges)
-	rng := getCorrectRanges(num,ranges)
+	num := getNumberInRange(numbers, ranges)
+	rng := getCorrectRanges(num, ranges)
 	fmt.Println(len(num), rng)
 
 }
-
 
 func getNumberInRange(numbers []int, ranges [][]int) []int {
 
@@ -67,9 +65,9 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 	for _, num := range numbers {
 
 		for i, rng := range ranges {
-			maxIdx := len(ranges)-1
-			if i + 1 < maxIdx {
-				maxIdx = i+1
+			maxIdx := len(ranges) - 1
+			if i+1 < maxIdx {
+				maxIdx = i + 1
 			}
 			if num >= rng[0] && num <= rng[1] {
 				cache = append(cache, rng)
@@ -91,7 +89,7 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 				toBreak := false
 				for _, rng := range correctRanges {
 					if minVal >= rng[0] && maxVal <= rng[1] {
-						toBreak =true
+						toBreak = true
 						break
 					}
 				}
@@ -115,14 +113,14 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 				}
 
 			}
-			correctRanges = append(correctRanges, []int{minVal,maxVal})
+			correctRanges = append(correctRanges, []int{minVal, maxVal})
 		}
 		if isCompleted {
 			break
 		}
 	}
 	for _, rng := range correctRanges {
-		result += rng[1]-rng[0]+1
+		result += rng[1] - rng[0] + 1
 	}
 
 	return result
@@ -132,12 +130,12 @@ func sort(list [][]int) [][]int {
 	for {
 		isSorted := true
 		for i := range list {
-			if i + 1 > len(list)-1 {
+			if i+1 > len(list)-1 {
 				break
 			}
 			if list[i][1] > list[i+1][1] {
-				a:= list[i]
-				b:=list[i+1]
+				a := list[i]
+				b := list[i+1]
 				list[i+1] = a
 				list[i] = b
 				isSorted = false
