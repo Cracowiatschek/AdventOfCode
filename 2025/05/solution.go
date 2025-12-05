@@ -65,14 +65,23 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 	result := 0
 	var cache [][]int
 	for _, num := range numbers {
-		for _, rng := range ranges {
+
+		for i, rng := range ranges {
+			maxIdx := len(ranges)-1
+			if i + 1 < maxIdx {
+				maxIdx = i+1
+			}
 			if num >= rng[0] && num <= rng[1] {
 				cache = append(cache, rng)
+
+				ranges = append(ranges[:i], ranges[maxIdx:]...)
 			}
 		}
 	}
+	fmt.Println(len(cache))
 	cache = sort(cache)
-	
+	fmt.Println(len(cache))
+
 	var correctRanges [][]int
 	for {
 		isCompleted := true
@@ -108,13 +117,11 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 
 			}
 			correctRanges = append(correctRanges, []int{minVal,maxVal})
-
 		}
 		if isCompleted {
 			break
 		}
 	}
-	fmt.Println(correctRanges)
 	for _, rng := range correctRanges {
 		result += rng[1]-rng[0]+1
 	}
