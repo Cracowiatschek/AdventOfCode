@@ -73,7 +73,6 @@ func getCorrectRanges(numbers []int, ranges [][]int) int {
 			}
 			if num >= rng[0] && num <= rng[1] {
 				cache = append(cache, rng)
-
 				ranges = append(ranges[:i], ranges[maxIdx:]...)
 			}
 		}
