@@ -47,7 +47,6 @@ func main() {
 func getNumberInRange(numbers []int, ranges [][]int) []int {
 
 	var result []int
-
 	for _, num := range numbers {
 		for _, rng := range ranges {
 			if num >= rng[0] && num <= rng[1] {
@@ -59,69 +58,35 @@ func getNumberInRange(numbers []int, ranges [][]int) []int {
 	return result
 }
 func getCorrectRanges(numbers []int, ranges [][]int) int {
-
-	result := 0
-	var cache [][]int
+	var finalRanges [][]int
 	for _, num := range numbers {
-
-		for i, rng := range ranges {
-			maxIdx := len(ranges) - 1
-			if i+1 < maxIdx {
-				maxIdx = i + 1
-			}
+		for idx , rng := range ranges{
 			if num >= rng[0] && num <= rng[1] {
-				cache = append(cache, rng)
-				ranges = append(ranges[:i], ranges[maxIdx:]...)
+				maxIdx := len(ranges)-1
+				if idx+1 < maxIdx {
+					maxIdx = idx+1
+				}
+				finalRanges = append(finalRanges, []int{rng[0], rng[1]})
+				ranges = append(ranges[:idx], ranges[maxIdx:]...)
 			}
 		}
 	}
-	fmt.Println(len(cache))
-	cache = sort(cache)
-	fmt.Println(len(cache))
+	result := 0
+	ranges = sort(finalRanges)
 
-	var correctRanges [][]int
-	for {
-		isCompleted := true
-		for _, val := range cache {
-			minVal := val[0]
-			maxVal := val[1]
-			if len(correctRanges) > 0 {
-				toBreak := false
-				for _, rng := range correctRanges {
-					if minVal >= rng[0] && maxVal <= rng[1] {
-						toBreak = true
-						break
-					}
-				}
-				if toBreak {
-					break
-				}
-			}
-			for _, search := range cache {
-				if search[0] <= maxVal && search[1] >= maxVal && search[0] >= minVal {
-					maxVal = search[1]
-					isCompleted = false
-				}
-				if search[0] < minVal && search[1] <= maxVal && search[1] >= minVal {
-					minVal = search[0]
-					isCompleted = false
-				}
-				if search[0] <= minVal && search[1] >= maxVal {
-					minVal = search[0]
-					maxVal = search[1]
-					isCompleted = false
-				}
+	maxVal := ranges[0][1]
+	minVal := ranges[0][0]
 
-			}
-			correctRanges = append(correctRanges, []int{minVal, maxVal})
-		}
-		if isCompleted {
-			break
+	for _, rng := range ranges {
+		if rng[0] <= maxVal && rng[1] > maxVal {
+			maxVal = rng[1]
+		} else if rng[0] > maxVal {
+			result += maxVal - minVal + 1
+			maxVal = rng[1]
+			minVal = rng[0]
 		}
 	}
-	for _, rng := range correctRanges {
-		result += rng[1] - rng[0] + 1
-	}
+	result += maxVal - minVal + 1
 
 	return result
 }
@@ -133,7 +98,7 @@ func sort(list [][]int) [][]int {
 			if i+1 > len(list)-1 {
 				break
 			}
-			if list[i][1] > list[i+1][1] {
+			if list[i][0] > list[i+1][0] {
 				a := list[i]
 				b := list[i+1]
 				list[i+1] = a
@@ -145,6 +110,5 @@ func sort(list [][]int) [][]int {
 			break
 		}
 	}
-
 	return list
 }
