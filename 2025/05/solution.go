@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sort"
 )
 
 func main() {
@@ -39,8 +40,8 @@ func main() {
 	}
 
 	num := getNumberInRange(numbers, ranges)
-	rng := getCorrectRanges(num, ranges)
-	fmt.Println(len(num), rng)
+	rng := getCorrectRanges(ranges)
+	fmt.Println("Part one: ",len(num),"\nPart two: ", rng)
 
 }
 
@@ -57,58 +58,25 @@ func getNumberInRange(numbers []int, ranges [][]int) []int {
 	}
 	return result
 }
-func getCorrectRanges(numbers []int, ranges [][]int) int {
-	var finalRanges [][]int
-	for _, num := range numbers {
-		for idx , rng := range ranges{
-			if num >= rng[0] && num <= rng[1] {
-				maxIdx := len(ranges)-1
-				if idx+1 < maxIdx {
-					maxIdx = idx+1
-				}
-				finalRanges = append(finalRanges, []int{rng[0], rng[1]})
-				ranges = append(ranges[:idx], ranges[maxIdx:]...)
-			}
+
+func getCorrectRanges( ranges [][]int) int {
+
+	sort.Slice(ranges, func(i, j int) bool {
+		return ranges[i][0] < ranges[j][0]
+	})
+
+	finalRanges := [][]int{ranges[0]}
+
+	for _, rng :=range ranges[1:] {
+		if rng[0] <= finalRanges[len(finalRanges)-1][1]+1 {
+			finalRanges[len(finalRanges)-1][1] = max(rng[1], finalRanges[len(finalRanges)-1][1])
+		} else {
+			finalRanges = append(finalRanges, rng)
 		}
 	}
 	result := 0
-	ranges = sort(finalRanges)
-
-	maxVal := ranges[0][1]
-	minVal := ranges[0][0]
-
-	for _, rng := range ranges {
-		if rng[0] <= maxVal && rng[1] > maxVal {
-			maxVal = rng[1]
-		} else if rng[0] > maxVal {
-			result += maxVal - minVal + 1
-			maxVal = rng[1]
-			minVal = rng[0]
-		}
+	for _, rng := range finalRanges {
+		result += (rng[1] - rng[0] + 1)
 	}
-	result += maxVal - minVal + 1
-
 	return result
-}
-
-func sort(list [][]int) [][]int {
-	for {
-		isSorted := true
-		for i := range list {
-			if i+1 > len(list)-1 {
-				break
-			}
-			if list[i][0] > list[i+1][0] {
-				a := list[i]
-				b := list[i+1]
-				list[i+1] = a
-				list[i] = b
-				isSorted = false
-			}
-		}
-		if isSorted {
-			break
-		}
-	}
-	return list
 }
